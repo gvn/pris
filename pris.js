@@ -6,116 +6,116 @@
  */
 
 if (typeof window.PRIS !== 'undefined') {
-	throw 'Namespace conflict. "PRIS" already in use.';
+    throw 'Global variable "PRIS" already in use.';
 }
 
 window.PRIS = (function () {
 
-	var database = {},
-		callbacks = [];
+    var database = {},
+        callbacks = [];
 
-	var events = {
-		databaseUpdated: function () {
-			runCallbacks();
-		}
-	}
+    var events = {
+        databaseUpdated: function () {
+            runCallbacks();
+        }
+    }
 
-	function setHash() {
-		console.log('setHash');
+    function setHash() {
+        console.log('setHash');
 
-		var uri = '/',
-			key;
+        var uri = '/',
+            key;
 
-		for (key in database) {
-			uri += (key + '/' + database[key] + '/');
-		}
+        for (key in database) {
+            uri += (key + '/' + database[key] + '/');
+        }
 
-		location.hash = uri;
-	}
+        location.hash = uri;
+    }
 
-	function serializeHash() {
-		console.log('serializeHash');
+    function serializeHash() {
+        console.log('serializeHash');
 
-		if (location.hash.length) {
-			var fragments = window.location.hash,
-				i,
-				ii;
+        if (location.hash.length) {
+            var fragments = window.location.hash,
+                i,
+                ii;
 
-			// Remove trailing slash if there is one
-			if (fragments[fragments.length - 1] === '/') {
-				fragments = fragments.slice(0, -1);
-			}
+            // Remove trailing slash if there is one
+            if (fragments[fragments.length - 1] === '/') {
+                fragments = fragments.slice(0, -1);
+            }
 
-			fragments = fragments.split('/');
+            fragments = fragments.split('/');
 
-			// Remove hash character
-			fragments = fragments.slice(1);
+            // Remove hash character
+            fragments = fragments.slice(1);
 
-			// Wipe database
-			database = {};
+            // Wipe database
+            database = {};
 
-			// Build out the database object with keys and values from URL.
-			for (i = 0, ii = fragments.length; i < ii; i += 2) {
-				// Make strings containing numbers into actual numbers
-				if (isNaN(parseInt(fragments[i + 1]))) {
-					database[fragments[i]] = fragments[i + 1];	
-				} else {
-					database[fragments[i]] = parseInt(fragments[i + 1]);	
-				}
-			}
-		}
+            // Build out the database object with keys and values from URL.
+            for (i = 0, ii = fragments.length; i < ii; i += 2) {
+                // Make strings containing numbers into actual numbers
+                if (isNaN(parseInt(fragments[i + 1]))) {
+                    database[fragments[i]] = fragments[i + 1];  
+                } else {
+                    database[fragments[i]] = parseInt(fragments[i + 1]);    
+                }
+            }
+        }
 
-		events.databaseUpdated();
-	}
+        events.databaseUpdated();
+    }
 
-	function set(key, value) {
-		database[key] = value;
-		setHash();
-	}
+    function set(key, value) {
+        database[key] = value;
+        setHash();
+    }
 
-	function get(key) {
-		return database[key];
-	}
+    function get(key) {
+        return database[key];
+    }
 
-	function remove(key) {
-		delete database[key];
-		setHash();
-	}
+    function remove(key) {
+        delete database[key];
+        setHash();
+    }
 
-	function bind (callback, scope) {
-		callbacks.push({
-			callback: callback,
-			scope: scope
-		});
-	}
+    function bind (callback, scope) {
+        callbacks.push({
+            callback: callback,
+            scope: scope
+        });
+    }
 
-	function unbindAll () {
-		callbacks = [];
-	}
+    function unbindAll () {
+        callbacks = [];
+    }
 
-	function runCallbacks () {
-		var i,
-			ii;
+    function runCallbacks () {
+        var i,
+            ii;
 
-		if (callbacks.length) {
-			for (i = 0, ii = callbacks.length; i < ii; i++) {
-				callbacks[i].callback.call(callbacks[i].scope, database);
-			}	
-		}
-	}
+        if (callbacks.length) {
+            for (i = 0, ii = callbacks.length; i < ii; i++) {
+                callbacks[i].callback.call(callbacks[i].scope, database);
+            }   
+        }
+    }
 
-	serializeHash();
+    serializeHash();
 
-	addEventListener('hashchange', function () {
-		serializeHash();
-	});
+    addEventListener('hashchange', function () {
+        serializeHash();
+    });
 
-	return {
-		set: set,
-		get: get,
-		remove: remove,
-		bind: bind,
-		unbindAll: unbindAll
-	};
+    return {
+        set: set,
+        get: get,
+        remove: remove,
+        bind: bind,
+        unbindAll: unbindAll
+    };
 
 }());
