@@ -2,6 +2,17 @@
 
 Key value pair based deep linking module.
 
+## Setup
+
+Simply include the **pris.js** script file and use the API.
+
+### Example
+
+```javascript
+PRIS.set('bad', 'dudes');  
+PRIS.get('bad');
+```
+
 ## API
 
 * **set** (key, value)  
@@ -20,3 +31,5 @@ Key value pair based deep linking module.
     * scope (Object, optional)
 * **unbindAll**  
   Unbind all callbacks to hash change.
+
+## Browser Compatibility
