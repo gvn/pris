@@ -2,7 +2,7 @@
 
 Key-value pair based URL hash storage.
 
-Author: **Gvn Suntop** | gavin@gsuntop.com
+Author: **gvn** | gavin@gsuntop.com
 
 ## Setup
 
