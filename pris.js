@@ -1,5 +1,8 @@
+/*global PRIS: true */
+/*jslint browser: true, sloppy: true, forin: true, plusplus: true, maxerr: 50, indent: 4 */
+
 /*
- * Pris 0.1
+ * Pris 0.2.1
  *
  * Copyright 2012, Gvn Suntop
  *
@@ -12,17 +15,10 @@ if (typeof window.PRIS !== 'undefined') {
 window.PRIS = (function () {
 
     var database = {},
-        callbacks = [];
-
-    var events = {
-        databaseUpdated: function () {
-            runCallbacks();
-        }
-    }
+        callbacks = [],
+        events;
 
     function setHash() {
-        console.log('setHash');
-
         var uri = '/',
             key;
 
@@ -34,8 +30,6 @@ window.PRIS = (function () {
     }
 
     function serializeHash() {
-        console.log('serializeHash');
-
         if (location.hash.length) {
             var fragments = window.location.hash,
                 i,
@@ -57,10 +51,10 @@ window.PRIS = (function () {
             // Build out the database object with keys and values from URL.
             for (i = 0, ii = fragments.length; i < ii; i += 2) {
                 // Make strings containing numbers into actual numbers
-                if (isNaN(parseInt(fragments[i + 1]))) {
-                    database[fragments[i]] = fragments[i + 1];  
+                if (isNaN(parseInt(fragments[i + 1], 10))) {
+                    database[fragments[i]] = fragments[i + 1];
                 } else {
-                    database[fragments[i]] = parseInt(fragments[i + 1]);    
+                    database[fragments[i]] = parseInt(fragments[i + 1], 10);
                 }
             }
         }
@@ -82,31 +76,37 @@ window.PRIS = (function () {
         setHash();
     }
 
-    function bind (callback, scope) {
+    function bind(callback, scope) {
         callbacks.push({
             callback: callback,
             scope: scope
         });
     }
 
-    function unbindAll () {
+    function unbindAll() {
         callbacks = [];
     }
 
-    function runCallbacks () {
+    function runCallbacks() {
         var i,
             ii;
 
         if (callbacks.length) {
             for (i = 0, ii = callbacks.length; i < ii; i++) {
                 callbacks[i].callback.call(callbacks[i].scope, database);
-            }   
+            }
         }
     }
 
+    events = {
+        databaseUpdated: function () {
+            runCallbacks();
+        }
+    };
+
     serializeHash();
 
-    addEventListener('hashchange', function () {
+    window.addEventListener('hashchange', function () {
         serializeHash();
     });
 
