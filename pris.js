@@ -2,7 +2,7 @@
 /*jslint browser: true, sloppy: true, forin: true, plusplus: true, maxerr: 50, indent: 4 */
 
 /*
- * Pris 0.2.1
+ * Pris 0.2.2
  *
  * Copyright 2012, Gvn Suntop
  *
@@ -98,6 +98,11 @@ window.PRIS = (function () {
         }
     }
 
+    function empty() {
+        location.hash = '';
+        database = {};
+    }
+
     events = {
         databaseUpdated: function () {
             runCallbacks();
@@ -115,7 +120,8 @@ window.PRIS = (function () {
         get: get,
         remove: remove,
         bind: bind,
-        unbindAll: unbindAll
+        unbindAll: unbindAll,
+        empty: empty
     };
 
 }());

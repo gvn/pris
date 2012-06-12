@@ -36,4 +36,6 @@ PRIS.get('bad');
 
 ## Browser Compatibility
 
-Chrome, Safari, Firefox
+**Chrome, Safari, Firefox**
+
+Open unit-tests.html to verify compatibility.
