@@ -7,14 +7,14 @@ $(document).ready(function () {
 		ok(typeof PRIS === 'object', 'PRIS is an Object.');
 	});
 
-    test('API', function () {
+	test('API', function () {
 		ok(typeof PRIS.set === 'function', 'set() exists');
 		ok(typeof PRIS.get === 'function', 'get() exists');
 		ok(typeof PRIS.remove === 'function', 'remove() exists');
 		ok(typeof PRIS.bind === 'function', 'bind() exists');
 		ok(typeof PRIS.unbindAll === 'function', 'unbindAll() exists');
 		ok(typeof PRIS.empty === 'function', 'empty() exists');
-    });
+	});
 
 	module('crud', {
 		setup: function () {
