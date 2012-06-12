@@ -2,7 +2,7 @@
 /*jslint browser: true, sloppy: true, forin: true, plusplus: true, maxerr: 50, indent: 4 */
 
 /*
- * Pris 0.2.2
+ * Pris 0.3.0
  *
  * Copyright 2012, Gvn Suntop
  *
@@ -16,7 +16,8 @@ window.PRIS = (function () {
 
     var database = {},
         callbacks = [],
-        events;
+        events,
+        lastHash = window.location.hash;
 
     function setHash() {
         var uri = '/',
@@ -111,9 +112,20 @@ window.PRIS = (function () {
 
     serializeHash();
 
-    window.addEventListener('hashchange', function () {
-        serializeHash();
-    });
+    if (typeof window.onhashchange === 'object' && typeof window.addEventListener === 'function') {
+        window.addEventListener('hashchange', function () {
+            serializeHash();
+        });
+    } else {
+        // Compensate for lack of native hashchange event
+        setInterval(function () {
+            if (lastHash !== window.location.hash) {
+                serializeHash();
+            }
+
+            lastHash = window.location.hash;
+        }, 100);
+    }
 
     return {
         set: set,
