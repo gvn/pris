@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+
+	<title>Pris Unit Tests</title>
+
+	<script src="pris.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://code.jquery.com/qunit/git/qunit.js"></script>
+
+	<script>
+	$(document).ready(function(){
+
+		test('Namespace', function () {
+			ok(typeof PRIS === 'object', 'PRIS is an Object.');
+		});
+
+		// Clear out the URL hash
+		window.location.hash = '';
+
+		test('Setting value', function () {
+			PRIS.set('bad', 'dudes');
+			strictEqual(window.location.hash, '#/bad/dudes/', 'Location hash is as expected.')
+		});
+
+		test('Getting value', function () {
+			strictEqual(PRIS.get('bad'), 'dudes', 'Returned value is correct.');
+		});
+
+		test('Changing value', function () {
+			PRIS.set('bad', 'guys');
+			strictEqual(window.location.hash, '#/bad/guys/', 'Location hash is as expected.');
+		});
+
+		test('Getting changed value', function () {
+			strictEqual(PRIS.get('bad'), 'guys', 'Returned value is correct.');
+		});
+
+		test('Removing value', function () {
+			PRIS.remove('bad');
+			strictEqual(window.location.hash, '#/', 'URL hash is correct.');
+			ok(typeof PRIS.get('bad') === 'undefined', 'Removed value is undefined.');
+		});
+
+	});
+	</script>
+</head>
+
+<body>
+	<h1 id="qunit-header">QUnit example</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>
