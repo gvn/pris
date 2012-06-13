@@ -39,3 +39,7 @@ PRIS.get('bad');
 **Chrome, Safari, Firefox, IE7+**
 
 Open unit-tests.html to verify compatibility.
+
+## License
+
+[Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.](http://creativecommons.org/licenses/by-nc-sa/3.0/)

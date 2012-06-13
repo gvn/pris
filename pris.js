@@ -4,7 +4,10 @@
 /*
  * Pris 0.3.0
  *
- * Copyright 2012, Gvn Suntop
+ * Copyright 2012, Gavin Suntop
+ *
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+ * http://creativecommons.org/licenses/by-nc-sa/3.0/
  *
  */
 
