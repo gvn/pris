@@ -52,6 +52,24 @@ $(document).ready(function () {
         ok(typeof PRIS.get('bad') === 'undefined', 'Removed value is undefined.');
     });
 
+    test('Numerical value stored as Number', function () {
+        PRIS.set('number', 23);
+        strictEqual(typeof PRIS.get('number'), 'number');
+
+        window.location.hash = '#/number/500/';
+        PRIS.serializeHash();
+        strictEqual(typeof PRIS.get('number'), 'number');
+    });
+
+    test('Boolean value stored as Boolean', function () {
+        PRIS.set('boolean', true);
+        strictEqual(typeof PRIS.get('boolean'), 'boolean');
+
+        window.location.hash = '#/boolean/true/';
+        PRIS.serializeHash();
+        strictEqual(typeof PRIS.get('boolean'), 'boolean');
+    });
+
     module('callbacks', {
         setup: function () {
             PRIS.empty();

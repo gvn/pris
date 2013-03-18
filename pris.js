@@ -56,8 +56,15 @@ window.PRIS = (function () {
             for (i = 0, ii = fragments.length; i < ii; i += 2) {
                 // Make strings containing numbers into actual numbers
                 if (isNaN(parseInt(fragments[i + 1], 10))) {
-                    database[fragments[i]] = fragments[i + 1];
+                    if (fragments[i + 1] === 'true' || fragments[i + 1] === 'false') {
+                        // Serialize as Boolean
+                        database[fragments[i]] = fragments[i + 1] === 'true' ? true : false;
+                    } else {
+                        // Serialize as String
+                        database[fragments[i]] = fragments[i + 1];
+                    }
                 } else {
+                    // Serialize as Number
                     database[fragments[i]] = parseInt(fragments[i + 1], 10);
                 }
             }
@@ -136,7 +143,8 @@ window.PRIS = (function () {
         remove: remove,
         bind: bind,
         unbindAll: unbindAll,
-        empty: empty
+        empty: empty,
+        serializeHash: serializeHash
     };
 
 }());
