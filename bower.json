@@ -1,0 +1,25 @@
+{
+  "name": "pris",
+  "main": "pris.js",
+  "version": "0.3.1",
+  "homepage": "https://github.com/gvn/pris",
+  "authors": [
+    "Gvn Suntop <gavin@gsuntop.com>"
+  ],
+  "description": "Key-value pair based URL hash storage.",
+  "keywords": [
+    "kvp",
+    "hash",
+    "url",
+    "storage",
+    "persistence",
+    "deep",
+    "linking"
+  ],
+  "license": "CC BY-NC-SA 3.0",
+  "ignore": [
+    "**/.*",
+    "unit-tests",
+    "index.html"
+  ]
+}
